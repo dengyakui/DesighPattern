@@ -2,22 +2,22 @@ namespace CommandPattern
 {
     public class GarageDoorOpenCommand : ICommand
     {
-        private readonly GarageDoor door;
+        private readonly GarageDoor _door;
 
         public GarageDoorOpenCommand(GarageDoor door)
         {
-            this.door = door;
+            this._door = door;
         }
 
         public void Execute()
         {
-            door.Up();
+            _door.Up();
 
         }
 
         public void Undo()
         {
-            door.Down();
+            _door.Down();
         }
     }
 }

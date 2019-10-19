@@ -20,7 +20,7 @@ namespace CommandPattern
         private ICommand[] _onCommands;
         private ICommand[] _offCommands;
 
-        private ICommand lastCommand;
+        private ICommand _undoCommand;
 
         public AdvancedRemoteControl()
         {
@@ -38,7 +38,7 @@ namespace CommandPattern
             {
                 _onCommands[i] = NoopComand.Instance;
             }
-            lastCommand = NoopComand.Instance;
+            _undoCommand = NoopComand.Instance;
         }
 
         public void SetCommand(int slot, ICommand onCommand, ICommand offCommand)
@@ -50,7 +50,7 @@ namespace CommandPattern
         public void OnButtonPressed(int slot)
         {
             this._onCommands[slot].Execute();
-            lastCommand = this._onCommands[slot];
+            _undoCommand = this._onCommands[slot];
 
         }
 
@@ -58,12 +58,12 @@ namespace CommandPattern
         public void OffButtonPressed(int slot)
         {
             this._offCommands[slot].Execute();
-            lastCommand = this._offCommands[slot];
+            _undoCommand = this._offCommands[slot];
         }
 
         public void Undo()
         {
-            this.lastCommand.Undo();
+            this._undoCommand.Undo();
         }
     }
 
